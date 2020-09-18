@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import java.io.InputStream;
 
+
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,7 +36,7 @@ public class AlyApp extends HttpServlet{
   HttpServletResponse response)
 	      throws ServletException, IOException {
           InputStream  is = request.getInputStream();
-          StringBuilder sb = new StringBuider();
+          StringBuilder sb = new StringBuilder();
 
           int i;
           char c;
