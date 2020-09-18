@@ -24,17 +24,25 @@ public class AlyApp extends HttpServlet{
   
   private static final Logger LOG = Logger.getLogger(SlackApp.class);
   
+  @Inject
+  @Channel("slack")
+  Emitter<PigLatin> slackEmitter;
+
   @Override
   protected void doPost(HttpServletRequest request, 
   HttpServletResponse response)
 	      throws ServletException, IOException {
           PrintWriter writer = response.getWriter();
           writer.print("Hola");
+          PigLatin pigLatin = new PigLatin(request.getPayload().getText());
+          pigLatin = resource.translate(pigLatin);
+          slackEmitter.send(pigLatin);
           writer.close();
+
 
   }
 
-  private static App initSlackApp() throws IOException {
+  private static App initAlyApp() throws IOException {
     App app = new App();
     app.command("/piglatin", (req, ctx) -> {
       
