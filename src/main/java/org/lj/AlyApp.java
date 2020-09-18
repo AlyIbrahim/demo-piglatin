@@ -36,6 +36,9 @@ public class AlyApp extends HttpServlet{
 	      throws ServletException, IOException {
           InputStream  is = request.getInputStream();
           StringBuilder sb = new StringBuider();
+
+          int i;
+          char c;
           while((i = is.read())!=-1) {
          
             // converts integer to character
