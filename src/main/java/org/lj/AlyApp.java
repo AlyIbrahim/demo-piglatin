@@ -53,7 +53,7 @@ public class AlyApp extends HttpServlet{
           PrintWriter writer = response.getWriter();          
           writer.print("Hola");
           PigLatin pigLatin = new PigLatin(sb.toString());
-          pigLatin = resource.translate(pigLatin);
+          pigLatin.translateToPigLatin();
           slackEmitter.send(pigLatin);
           writer.close();
 
