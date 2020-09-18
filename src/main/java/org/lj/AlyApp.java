@@ -14,6 +14,8 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import javax.inject.Inject;
 
+import java.io.InputStream;
+
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,9 +34,21 @@ public class AlyApp extends HttpServlet{
   protected void doPost(HttpServletRequest request, 
   HttpServletResponse response)
 	      throws ServletException, IOException {
-          PrintWriter writer = response.getWriter();
+          InputStream  is = request.getInputStream();
+          StringBuilder sb = new StringBuider();
+          while((i = is.read())!=-1) {
+         
+            // converts integer to character
+            c = (char)i;
+            sb.append(c);
+            
+            // prints character
+            System.out.print(c);
+         }
+          LOG.info(sb.toString());
+          PrintWriter writer = response.getWriter();          
           writer.print("Hola");
-          PigLatin pigLatin = new PigLatin(request.getPayload().getText());
+          PigLatin pigLatin = new PigLatin(sb.toString());
           pigLatin = resource.translate(pigLatin);
           slackEmitter.send(pigLatin);
           writer.close();
